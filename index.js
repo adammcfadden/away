@@ -1,7 +1,7 @@
 var xtend = require('xtend');
 
-module.exports = function(timeout) {
-    return new Idle({ timeout: timeout });
+module.exports = function(timeout, opt) {
+    return new Idle(timeout, opt);
 };
 
 // default settings
@@ -18,7 +18,7 @@ var defaults = {
     events: 'mousemove keydown DOMMouseScroll mousewheel mousedown touchstart touchmove'
 };
 
-var Idle = function(opt) {
+var Idle = function(timeout, opt) {
     var self = this;
 
     self.opt = xtend(defaults, opt);
@@ -26,7 +26,7 @@ var Idle = function(opt) {
 
     self.state = {
         idle: self.opt.idle,
-        timeout: self.opt.timeout,
+        timeout: timeout,
         enabled: self.opt.enabled,
         idle_fn: [],
         active_fn: []
